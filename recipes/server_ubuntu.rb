@@ -25,6 +25,12 @@ apt_repository "plexapp" do
   action :add
 end
 
+package "plex-archive-keyring" do
+  options "--force-yes"
+  action :install
+  notifies :run, "execute[apt-get update]", :immediately
+end
+
 package "plexmediaserver"
 
 service "plexmediaserver" do
