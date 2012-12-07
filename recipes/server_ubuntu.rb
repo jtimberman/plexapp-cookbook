@@ -28,7 +28,7 @@ end
 package "plex-archive-keyring" do
   options "--force-yes"
   action :install
-  notifies :run, resources('execute[apt-get update]'), :immediately
+  notifies :run, "execute[apt-get update]", :immediately
 end
 
 package "plexmediaserver"
