@@ -18,4 +18,4 @@
 # limitations under the License.
 # 
 
-include_recipe "plexapp::server_#{node['platform']}"
+include_recipe "plexapp::server"
