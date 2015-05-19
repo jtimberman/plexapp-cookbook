@@ -8,76 +8,48 @@ This cookbook installs and configures Plex Media Server.
 
 Currently supported platforms:
 
-* Ubuntu 12.04
+* Ubuntu 14.04
+* Fedora 21
 
-# Installation
+It should also just work on RHEL platforms, but they're not included in the test kitchen matrix.
 
-You should install the cookbook from the Opscode Chef Community site,
-not directly from the git repository. The git repository may contain
-changes that are untested.
+In the future this may support OS X, and FreeBSD. There are conditional branches in the helpers, but the server recipe will fail, since the package and service resources won't converge on those platforms at this time.
 
-## knife
+# Attributes
 
-Download and extract the cookbook in your cookbooks directory.
-
-    knife cookbook site download plexapp
-    tar -zxvf plexapp-*.tar.gz -C cookbooks
-
-Or, if you use the "vendor branch" workflow:
-
-    knife cookbook site install plexapp
-
-## Berkshelf
-
-In your top-level Chef repository Berksfile:
-
-    cookbook "plexapp"
-
-## Librarian Chef
-
-In your Chef repository Cheffile:
-
-    cookbook "plexapp"
-
-# Usage
-
-Modify the attributes as required in a role or wrapper cookbook, and
-add the default recipe to the run list. For example, I have a
-"plex-server" role that looks like this:
-
-    name "plex-server"
-    run_list("recipe[plexapp]")
+See `./attributes/default.rb`.
 
 # Recipes
 
-## server_ubuntu
+## server
 
 Adds Plex apt repository, installs the package and manages the service
 using upstart.
 
 ## default
 
-Includes the appropriate recipe based on `node['platform']`.
+Includes the server recipe.
 
 # Roadmap
 
-* Support additional platforms. Plex Media Server itself supports
-  Fedora, CentOS, Mac OS X and Windows.
+* Support server installs on Windows, OS X, and FreeBSD.
 * Support client installation.
 
 # Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. Create your feature branch (`git checkout -b my-new-feature`)
+1. Ensure that you add ChefSpec test coverage, and any relevant modifications to the `.kitchen.yml`.
+1. Commit your changes (`git commit -am 'Add some feature'`)
+1. Push to the branch (`git push origin my-new-feature`)
+1. Create new Pull Request
 
 # Author
 
 - Author: Joshua Timberman (<cookbooks@housepub.org>)
-- Copyright:: (c) 2012, Joshua Timberman
+- Copyright:: (c) 2012-2015, Joshua Timberman
 
+```text
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -89,3 +61,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```

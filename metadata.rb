@@ -6,3 +6,5 @@ description      'Installs and configures Plex media server'
 version          '0.1.0'
 
 supports 'ubuntu'
+supports 'fedora'
+supports 'centos'
