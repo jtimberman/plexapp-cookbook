@@ -18,18 +18,37 @@
 # limitations under the License.
 #
 cached_package_file = File.join(
-                                Chef::Config[:file_cache_path],
-                                plexapp_package_file(plexapp_package_url)
-                               )
+  Chef::Config[:file_cache_path],
+  plexapp_package_file(plexapp_package_url),
+)
 
 remote_file cached_package_file do
   source plexapp_package_url
 end
 
-package [ 'avahi-daemon', 'avahi-utils' ] if platform_family?('debian')
+if platform_family?('debian')
+  [ 'avahi-daemon', 'avahi-utils' ].each do |pkg|
+    package pkg
+  end
+end
+
+dpkg_package 'plexmediaserver' do
+  source cached_package_file
+  notifies :restart, 'service[plexmediaserver]'
+  options '--force-confold'
+  action :install
+  version node['plexapp']['version']
+end if platform_family?('debian')
 
 package 'plexmediaserver' do
   source cached_package_file
+  notifies :restart, 'service[plexmediaserver]'
+end unless platform_family?('debian')
+
+template '/etc/default/plexmediaserver' do
+  source 'plexmediaserver.erb'
+  notifies :restart, 'service[plexmediaserver]'
+  action :create
 end
 
 service 'plexmediaserver' do
