@@ -10,5 +10,10 @@ default['plexapp']['version'] = '0.9.12.3.1173-937aac3'
 #
 default['plexapp']['package_url'] = nil
 
-default['plexapp']['application_support_dir'] = "/mnt/media/.plex/Library/Application Support"
-default['plexapp']['tmpdir'] = "/mnt/media/.plex/tmp"
+# Some plexserver knobs
+#
+default['plexapp']['max_plugin_procs'] = 6
+default['plexapp']['max_stack_size'] = 3000
+default['plexapp']['application_support_dir'] = "${HOME}/Library/Application Support"
+default['plexapp']['tmpdir'] = "/tmp"
+default['plexapp']['user'] = "plex"
