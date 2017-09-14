@@ -1,19 +1,23 @@
 # default script for Plex Media Server
 
 # the number of plugins that can run at the same time
-PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=<%= node['plexapp']['max_plugin_procs'] %>
+export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=<%= node['plexapp']['max_plugin_procs'] %>
 
 # ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
-PLEX_MEDIA_SERVER_MAX_STACK_SIZE=<%= node['plexapp']['max_stack_size'] %>
+export PLEX_MEDIA_SERVER_MAX_STACK_SIZE=<%= node['plexapp']['max_stack_size'] %>
 
 # where the mediaserver should store the transcodes
-PLEX_MEDIA_SERVER_TMPDIR="<%= node['plexapp']['tmpdir'] %>"
+export PLEX_MEDIA_SERVER_TMPDIR=<%= node['plexapp']['tmpdir'] %>
 
 # uncomment to set it to something else
-PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="<%= node['plexapp']['application_support_dir'] %>"
+# export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="<%= node['plexapp']['application_support_dir'] %>"
 
 # the user that PMS should run as, defaults to 'plex'
 # note that if you change this you might need to move
 # the Application Support directory to not lose your
-# media library
-PLEX_MEDIA_SERVER_USER=<%= node['plexapp']['user'] %>
+# media library (match what is in /etc/passwd)
+export PLEX_MEDIA_SERVER_USER=<%= node['plexapp']['user'] %>
+
+# Uncomment this to use syslog for logging instead of
+# sending logs to Plex Media Server.log
+#export PLEX_MEDIA_SERVER_USE_SYSLOG=true
